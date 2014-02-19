@@ -1,11 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include "SceneHandler.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
+	sf::Clock clock;
+	float dt = 0.01;
     while (window.isOpen())
     {
         sf::Event event;
@@ -14,9 +14,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+		dt = (clock.restart()).asSeconds();
+
+		SceneHandler::update(dt);
 
         window.clear();
-        window.draw(shape);
+		SceneHandler::draw(window);
         window.display();
     }
 
