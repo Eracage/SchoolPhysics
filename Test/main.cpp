@@ -15,7 +15,6 @@ int main()
                 window.close();
         }
 		dt = (clock.restart()).asSeconds();
-
 		SceneHandler::update(dt);
 
         window.clear();

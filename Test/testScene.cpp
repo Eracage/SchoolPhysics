@@ -1,4 +1,5 @@
 #include "testScene.h"
+#include <iostream>
 
 
 testScene::testScene()
@@ -15,9 +16,12 @@ testScene::~testScene()
 
 void testScene::Update(float dt)
 {
-	dt/=100;
+	//dt/=1000;
 	for (int i = 0; i < balls.size(); i++)
+	{
 		balls[i].Update(dt);
+		std::cout<<balls[i].velocity.x<<","<<balls[i].velocity.y<<std::endl;
+	}
 }
 void testScene::Draw(sf::RenderWindow &window)
 {

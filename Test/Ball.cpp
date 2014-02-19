@@ -23,8 +23,9 @@ Ball::~Ball()
 
 void Ball::Update(float dt)
 {
-	velocity += force*(float)dt;
-	shape.setPosition(shape.getPosition()+velocity);
+	velocity += force*dt;
+	shape.move(velocity*dt*100.f);
+	//shape.setPosition(shape.getPosition()+velocity);
 }
 
 
