@@ -9,11 +9,15 @@ void SceneHandler::update(float dt)
 {
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F1) && lastScene != 1) || lastScene == -1)
 	{
+		if (lastScene != -1)
+			delete curScene;
+
 		curScene = new testScene();
 		lastScene = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F2) && lastScene != 2)
 	{
+		delete curScene;
 		curScene = new testScene();
 		lastScene = 2;
 	}

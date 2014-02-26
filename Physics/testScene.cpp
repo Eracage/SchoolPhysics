@@ -20,7 +20,7 @@ void testScene::Update(float dt)
 	for (int i = 0; i < balls.size(); i++)
 	{
 		balls[i].Update(dt);
-		std::cout<<balls[i].velocity.x<<","<<balls[i].velocity.y<<std::endl;
+		std::cout<<balls[i].M_Velocity.x<<","<<balls[i].M_Velocity.y<<std::endl;
 	}
 }
 void testScene::Draw(sf::RenderWindow &window)
