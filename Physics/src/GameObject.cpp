@@ -1,5 +1,7 @@
-#include "GameObject.h"
+#include <GameObject.h>
 
+//float METERS_TO_PIXELS = 50;
+//float GROUND_Y_IN_PIXELS = 700;
 
 GameObject::GameObject()
 	: M_Velocity(0,0),
@@ -12,7 +14,7 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {}
 
-void PreUpdate(float dt)
+void GameObject::PreUpdate(float dt)
 {
 
 }
@@ -23,15 +25,22 @@ void GameObject::Update(float dt)
 
 	M_Velocity += M_ConstantForce*dt;
 
-	M_Position += M_Velocity*dt*100.f;
-	m_shape->setPosition(M_Position);
+	M_Position += M_Velocity*dt;
+	m_shape->setPosition(sf::Vector2f(
+		M_Position.x*METERS_TO_PIXELS,
+		-M_Position.y*METERS_TO_PIXELS+GROUND_Y_IN_PIXELS));
 
 	PostUpdate(dt);
 }
 
-void PostUpdate(float dt)
+void GameObject::PostUpdate(float dt)
 {
 
+}
+
+void GameObject::Draw(sf::RenderWindow &window)
+{
+	window.draw(*m_shape);
 }
 
 void GameObject::setConstantForce(sf::Vector2f force)

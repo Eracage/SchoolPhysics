@@ -10,6 +10,27 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\Collider.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PhysicsObject.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SceneHandler.cpp" />
+    <ClCompile Include="src\testScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Ball.h" />
+    <ClInclude Include="include\Collider.h" />
+    <ClInclude Include="include\Collision.h" />
+    <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\PhysicsObject.h" />
+    <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneHandler.h" />
+    <ClInclude Include="include\testScene.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F258115D-5C00-48D8-B0DC-E72AD6BA17DE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -50,7 +71,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../SFML-2.1/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../SFML-2.1/include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,23 +100,6 @@
       <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneHandler.cpp" />
-    <ClCompile Include="testScene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneHandler.h" />
-    <ClInclude Include="testScene.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

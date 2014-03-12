@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include "SceneHandler.h"
+#include <SceneHandler.h>
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
 	sf::Clock clock;
+	sf::CircleShape asdf;
 	float dt = 0.01;
     while (window.isOpen())
     {

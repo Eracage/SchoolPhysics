@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Scene.h"
+#include <Scene.h>
 
 class SceneHandler
 {

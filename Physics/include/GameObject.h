@@ -2,6 +2,9 @@
 
 #include <SFML\Graphics.hpp>
 
+static float METERS_TO_PIXELS = 50;
+static float GROUND_Y_IN_PIXELS = 700;
+
 class GameObject
 {
 public:
@@ -13,11 +16,16 @@ public:
 	GameObject();
 	virtual ~GameObject();
 	
-	virtual void PreUpdate(float dt){}
+	virtual void PreUpdate(float dt);
 	void Update(float dt);
-	virtual void PostUpdate(float dt){}
+	virtual void PostUpdate(float dt);
+
+	virtual void Draw(sf::RenderWindow &window);
+
 	void setConstantForce(sf::Vector2f force);
 	void UpdateSize();
+
+
 	
 	sf::Vector2f M_ConstantForce;
 	sf::Vector2f M_Velocity;

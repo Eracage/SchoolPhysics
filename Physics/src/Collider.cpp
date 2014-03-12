@@ -1,4 +1,4 @@
-#include "Collider.h"
+#include <Collider.h>
 
 //bool Collider::CheckCollision(const GameObject &fo, const GameObject &so, const CollisionQuality quality)
 //{
