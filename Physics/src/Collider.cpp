@@ -15,6 +15,15 @@ bool Collider::ApplyPhysics(GameObject &fo, GameObject &so, const CollisionQuali
 
 	if (BasicBallCollision(fo,so))
 	{
+		switch (quality)
+		{
+			case BASIC_BALL:
+				break;
+			case DEFAULT:
+				break;
+			case ADVANCED:
+				break;
+		}
 		return true;
 	}
 	return false;
@@ -33,3 +42,5 @@ bool Collider::BasicBallCollision(const GameObject &fo, const GameObject &so)
 	}
 	return false;
 }
+
+bool Collider::AdvancedCollision(const GameObject &firstObject, const GameObject &secondObject);
