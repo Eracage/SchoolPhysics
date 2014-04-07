@@ -1,11 +1,9 @@
 #include <Collision.h>
 
-
-Collision::Collision(void)
+Collision::Collision()
 {
 }
 
-
-Collision::~Collision(void)
+Collision::~Collision()
 {
 }

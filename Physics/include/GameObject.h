@@ -1,11 +1,12 @@
 #pragma once
 
 #include <SFML\Graphics.hpp>
+#include <PhysicsObject.h>
 
 static float METERS_TO_PIXELS = 50;
 static float GROUND_Y_IN_PIXELS = 700;
 
-class GameObject
+class GameObject : public PhysicsObject
 {
 public:
 	enum SHAPE

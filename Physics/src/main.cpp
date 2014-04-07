@@ -6,7 +6,7 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
 	sf::Clock clock;
 	sf::CircleShape asdf;
-	float dt = 0.01;
+	float dt = 0.01f;
     while (window.isOpen())
     {
         sf::Event event;

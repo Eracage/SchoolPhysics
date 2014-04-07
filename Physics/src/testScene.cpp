@@ -18,7 +18,7 @@ testScene::~testScene()
 void testScene::Update(float dt)
 {
 	//dt/=1000;
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
 		objects[i].Update(dt);
 		std::cout<<objects[i].M_Velocity.x<<","<<objects[i].M_Velocity.y<<std::endl;
@@ -26,6 +26,6 @@ void testScene::Update(float dt)
 }
 void testScene::Draw(sf::RenderWindow &window)
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 		objects[i].Draw(window);
 }

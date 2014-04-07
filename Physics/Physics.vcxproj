@@ -20,6 +20,8 @@
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneHandler.cpp" />
     <ClCompile Include="src\testScene.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Ball.h" />
@@ -30,6 +32,8 @@
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneHandler.h" />
     <ClInclude Include="include\testScene.h" />
+    <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="include\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F258115D-5C00-48D8-B0DC-E72AD6BA17DE}</ProjectGuid>
