@@ -43,12 +43,12 @@ void World::setWorldSize(sf::Vector2f size)
 {
 	m_worldLimits = sf::Rect<float>(
 		GROUND_MIDX_IN_PIXELS/METERS_TO_PIXELS-size.x/2.f,
-		GROUND_Y_IN_PIXELS/METERS_TO_PIXELS-size.y,
+		size.y,
 		size.x,
 		size.y);
 	m_worldRect.setPosition(
 		m_worldLimits.left * METERS_TO_PIXELS, 
-		m_worldLimits.top * METERS_TO_PIXELS);
+		GROUND_Y_IN_PIXELS - (m_worldLimits.height) * METERS_TO_PIXELS);
 	m_worldRect.setSize(sf::Vector2f(
 		m_worldLimits.width*METERS_TO_PIXELS, 
 		m_worldLimits.height*METERS_TO_PIXELS));

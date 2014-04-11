@@ -38,7 +38,7 @@ void PhysicsObject::setShapePos()
 {
 	m_shape->setPosition(sf::Vector2f(
 		M_Position.x*METERS_TO_PIXELS,
-		-M_Position.y*METERS_TO_PIXELS+GROUND_Y_IN_PIXELS));
+		GROUND_Y_IN_PIXELS-M_Position.y*METERS_TO_PIXELS));
 }
 
 void PhysicsObject::Draw(sf::RenderWindow &window)

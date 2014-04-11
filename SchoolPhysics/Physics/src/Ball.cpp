@@ -14,7 +14,6 @@ Ball::Ball(float radius, sf::Color color)
 	setRadius(radius);
 
     m_shape->setFillColor(sf::Color::Green);
-	m_shape->setOrigin(radius,radius);
 }
 
 
@@ -24,7 +23,8 @@ Ball::~Ball()
 
 float Ball::setRadius(float radius)
 {
-	((sf::CircleShape*)m_shape)->setRadius(radius*METERS_TO_PIXELS);
+	m_shape->setRadius(radius*METERS_TO_PIXELS);
+	m_shape->setOrigin(radius*METERS_TO_PIXELS,radius*METERS_TO_PIXELS);
 	UpdateSize();
 	return radius;
 }

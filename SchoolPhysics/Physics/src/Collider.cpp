@@ -60,8 +60,8 @@ void Collider::ApplyWallCollision()
 		const float Abot = Apos.y - Arad;
 		const float Wleft = WL.left;
 		const float Wright = WL.left+WL.width;
-		const float Wtop = WL.top+WL.height;
-		const float Wbot = WL.top;
+		const float Wtop = WL.top;
+		const float Wbot = WL.top-WL.height;
 
 		if (Wleft>Aleft)
 		{
