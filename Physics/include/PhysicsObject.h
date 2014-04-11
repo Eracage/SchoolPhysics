@@ -30,6 +30,7 @@ public:
 	float M_Radius;
 	float M_Radius_Pow2;
 	float M_Mass;
+	float M_Bounciness;
 protected:
 	sf::CircleShape* m_shape;
 };

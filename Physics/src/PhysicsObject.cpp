@@ -5,6 +5,7 @@ PhysicsObject::PhysicsObject()
 	: M_Velocity(0,0),
 	  M_ConstantForce(0,0),
 	  M_Position(0,0),
+	  M_Bounciness(0.95),
 	  m_shape(nullptr)
 {}
 
@@ -53,7 +54,8 @@ void PhysicsObject::setConstantForce(sf::Vector2f force)
 
 void PhysicsObject::UpdateSize()
 {
-	M_Radius = m_shape->getRadius();
+	M_Radius = m_shape->getRadius() / METERS_TO_PIXELS;
 	M_Radius_Pow2 = M_Radius*M_Radius;
 	M_Mass = 4.f*3.14159f*M_Radius_Pow2*M_Radius/3.f;
 }
+
