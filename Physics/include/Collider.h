@@ -5,11 +5,8 @@ class Collider
 {
 public:
 
-	Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& WorldLimits)
-		: m_physObjects(PhysObjects),
-		m_worldLimits(WorldLimits)
-	{}
-	~Collider(){}
+	Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& WorldLimits);
+	~Collider();
 
 	enum CollisionQuality
 	{
@@ -21,19 +18,19 @@ public:
 	void Update();
 	void setIterationCount(unsigned int CollisionIterations);
 
-	//static bool CheckCollision(const GameObject &firstObject, const GameObject &secondObject, const CollisionQuality quality);
-	//static bool AddGameObject(GameObject
-	static bool ApplyPhysics(PhysicsObject &firstObject, PhysicsObject &secondObject, const CollisionQuality quality);
-	static bool ApplyPhysics(PhysicsObject &firstObject, PhysicsObject &secondObject, const int quality);
+
+
 	
 private:
-	static bool checkCollision(PhysicsObject &firstObject, PhysicsObject &secondObject, const int quality);
-	static bool BasicBallCollision(const PhysicsObject &firstObject, const PhysicsObject &secondObject);
-	static bool BasicSquareCollision(const PhysicsObject &firstObject, const PhysicsObject &secondObject);
-	static bool AdvancedCollision(const PhysicsObject &firstObject, const PhysicsObject &secondObject);
+	void ReserveCollisionSpace();
+	void ApplyWallCollision();
+	void SolveBallCollisions();
+	bool BasicBallCollision(const size_t a, const size_t b);
 
-	sf::Rect<float>& m_worldLimits;
+	const sf::Rect<float>& m_worldLimits;
 	std::vector<PhysicsObject>& m_physObjects;
 	unsigned int m_iters;
+	std::vector<std::vector<Collision>> m_collisions;
+	unsigned int m_reservedSpace;
 };
 

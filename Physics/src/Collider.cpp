@@ -1,30 +1,39 @@
 #include <Collider.h>
 
-//bool Collider::CheckCollision(const GameObject &fo, const GameObject &so, const CollisionQuality quality)
-//{
-//	if (BasicBallCollision(fo,so))
-//	{
-//		return true;
-//	}
-//	return false;
-//}
+float Dot(const sf::Vector2f a, const sf::Vector2f b)
+{
+	return a.x * b.x + b.y * a.y;
+}
+
+Collider::Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& WorldLimits)
+	: m_physObjects(PhysObjects),
+	m_worldLimits(WorldLimits),
+	m_iters(1),
+	m_reservedSpace(0)
+{}
+
+Collider::~Collider()
+{}
 
 void Collider::Update()
 {
+	ReserveCollisionSpace();
 	for (unsigned int iters = 0; iters <= m_iters; ++iters)
 	{
 		for (size_t a = 0; a < m_physObjects.size(); ++a)
 		{
+			ApplyWallCollision();
 			for (size_t b = a+1; b < m_physObjects.size(); ++b)
 			{
 
 			}
 		}
+		SolveBallCollisions();
 	}
 	
 	for (size_t a = 0; a < m_physObjects.size(); ++a)
 	{
-
+		ApplyWallCollision();
 	}
 }
 void Collider::setIterationCount(unsigned int CollisionIterations)
@@ -32,79 +41,50 @@ void Collider::setIterationCount(unsigned int CollisionIterations)
 	m_iters = CollisionIterations;
 }
 
-bool Collider::ApplyPhysics(PhysicsObject &fo, PhysicsObject &so, const CollisionQuality quality)
+void Collider::ReserveCollisionSpace()
 {
-	return ApplyPhysics(fo, so, static_cast<int>(quality));
-}
-bool Collider::ApplyPhysics(PhysicsObject &fo, PhysicsObject &so, int quality)
-{
-	//const sf::Vector2f difVector = (so.M_Position-fo.M_Position);
-
-	//while (quality > 0)
-	//{
-	//	if (quality&BASIC_SQUARE)
-	//	{
-	//		if (!BasicSquareCollision(fo,so))
-	//			return false;
-	//		quality=quality^BASIC_SQUARE;
-	//	}
-	//	else if (quality&BASIC_BALL)
-	//	{
-	//		if (!BasicBallCollision(fo,so))
-	//			return false;
-	//		quality-=BASIC_BALL;
-	//	}
-	//}
-
-	//if (quality&BASIC_BALL)
-	//{
-	//	switch (quality)
-	//	{
-	//		case BASIC_BALL:
-	//			break;
-	//		case DEFAULT:
-	//			break;
-	//		case ADVANCED:
-	//			break;
-	//	}
-	//	return true;
-	//}
-	//return false;
-	return false;
-}
-
-bool Collider::checkCollision(PhysicsObject &firstObject, PhysicsObject &secondObject, const int quality)
-{
-	return false;
-}
-bool Collider::BasicBallCollision(const PhysicsObject &fo, const PhysicsObject &so)
-{
-	const float soRadiusP2 = so.M_Radius_Pow2;
-	const sf::Vector2f difVector = (so.M_Position-fo.M_Position);
-	const float foRadiusP2 = fo.M_Radius_Pow2;
-
-	if (pow(difVector.x,2) + pow(difVector.y,2) <
-		foRadiusP2 + soRadiusP2)
+	if (m_reservedSpace < m_physObjects.size())
 	{
-		return true;
+		m_collisions.resize(m_physObjects.size());
 	}
-	return false;
-}
-bool Collider::BasicSquareCollision(const PhysicsObject &fo, const PhysicsObject &so)
-{
-	const float ax = fo.M_Position.x;
-	const float ay = fo.M_Position.y;
-	const float l = fo.M_Radius_Pow2 + so.M_Radius_Pow2;;
-	const float bx = so.M_Position.x;
-	const float by = so.M_Position.y;
-	if (abs(ax-bx)>l)
-		return false;
-	if (abs(ay-by)>l)
-		return false;
-	return true;
 }
 
-bool Collider::AdvancedCollision(const PhysicsObject &firstObject, const PhysicsObject &secondObject)
+void Collider::ApplyWallCollision()
 {
+	//const float ax = fo.M_Position.x;
+	//const float ay = fo.M_Position.y;
+	//const float l = fo.M_Radius_Pow2 + so.M_Radius_Pow2;;
+	//const float bx = so.M_Position.x;
+	//const float by = so.M_Position.y;
+	//if (abs(ax-bx)>l)
+	//	return false;
+	//if (abs(ay-by)>l)
+	//	return false;
+	//return true;
+}
+
+void Collider::SolveBallCollisions()
+{
+	for (size_t i = 0; i < m_physObjects.size(); i++)
+	{
+		if (!m_collisions[i].empty())
+		{
+
+		}
+	}
+}
+
+bool Collider::BasicBallCollision(const size_t a, const size_t b)
+{
+	const float soRadiusP2 = m_physObjects[b].M_Radius_Pow2;
+	const sf::Vector2f difVector = (m_physObjects[b].M_Position-m_physObjects[a].M_Position);
+	const float foRadiusP2 = m_physObjects[a].M_Radius_Pow2;
+	const float difVecLengthPow2 = Dot(difVector,difVector);
+	const float combRad = foRadiusP2 + soRadiusP2;
+
+	if (difVecLengthPow2 < combRad)
+	{
+		m_collisions[a].push_back(Collision(m_physObjects[a],m_physObjects[b]));
+	}
 	return false;
 }
