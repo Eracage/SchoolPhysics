@@ -1,11 +1,11 @@
 #pragma once
 
-#include <GameObject.h>
+#include <PhysicsObject.h>
 
 class Collision
 {
 public:
-	Collision(GameObject *GOA, GameObject *GOB)
+	Collision(PhysicsObject *GOA, PhysicsObject *GOB)
 	{
 		A = GOA;
 		B = GOB;
@@ -23,8 +23,8 @@ public:
 		Bp = B->M_Position;
 	}
 	
-	GameObject *A;
-	GameObject *B;
+	PhysicsObject *A;
+	PhysicsObject *B;
 	// velocity
 	sf::Vector2f Av;
 	// velocity

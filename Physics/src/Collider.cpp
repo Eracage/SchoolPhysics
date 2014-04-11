@@ -9,51 +9,75 @@
 //	return false;
 //}
 
-bool Collider::ApplyPhysics(GameObject &fo, GameObject &so, const CollisionQuality quality)
+void Collider::Update()
+{
+	for (unsigned int iters = 0; iters <= m_iters; ++iters)
+	{
+		for (size_t a = 0; a < m_physObjects.size(); ++a)
+		{
+			for (size_t b = a+1; b < m_physObjects.size(); ++b)
+			{
+
+			}
+		}
+	}
+	
+	for (size_t a = 0; a < m_physObjects.size(); ++a)
+	{
+
+	}
+}
+void Collider::setIterationCount(unsigned int CollisionIterations)
+{
+	m_iters = CollisionIterations;
+}
+
+bool Collider::ApplyPhysics(PhysicsObject &fo, PhysicsObject &so, const CollisionQuality quality)
 {
 	return ApplyPhysics(fo, so, static_cast<int>(quality));
 }
-bool Collider::ApplyPhysics(GameObject &fo, GameObject &so, int quality)
+bool Collider::ApplyPhysics(PhysicsObject &fo, PhysicsObject &so, int quality)
 {
-	const sf::Vector2f difVector = (so.M_Position-fo.M_Position);
+	//const sf::Vector2f difVector = (so.M_Position-fo.M_Position);
 
-	while (quality > 0)
-	{
-		if (quality&BASIC_SQUARE)
-		{
-			if (!BasicSquareCollision(fo,so))
-				return false;
-			quality=quality^BASIC_SQUARE;
-		}
-		else if (quality&BASIC_BALL)
-		{
-			if (!BasicBallCollision(fo,so))
-				return false;
-			quality-=BASIC_BALL;
-		}
-	}
+	//while (quality > 0)
+	//{
+	//	if (quality&BASIC_SQUARE)
+	//	{
+	//		if (!BasicSquareCollision(fo,so))
+	//			return false;
+	//		quality=quality^BASIC_SQUARE;
+	//	}
+	//	else if (quality&BASIC_BALL)
+	//	{
+	//		if (!BasicBallCollision(fo,so))
+	//			return false;
+	//		quality-=BASIC_BALL;
+	//	}
+	//}
 
-	if (quality&BASIC_BALL)
-	{
-		switch (quality)
-		{
-			case BASIC_BALL:
-				break;
-			case DEFAULT:
-				break;
-			case ADVANCED:
-				break;
-		}
-		return true;
-	}
+	//if (quality&BASIC_BALL)
+	//{
+	//	switch (quality)
+	//	{
+	//		case BASIC_BALL:
+	//			break;
+	//		case DEFAULT:
+	//			break;
+	//		case ADVANCED:
+	//			break;
+	//	}
+	//	return true;
+	//}
+	//return false;
 	return false;
 }
 
-bool Collider::checkCollision(GameObject &firstObject, GameObject &secondObject, const int quality)
+bool Collider::checkCollision(PhysicsObject &firstObject, PhysicsObject &secondObject, const int quality)
 {
 	return false;
 }
-bool Collider::BasicBallCollision(const GameObject &fo, const GameObject &so)
+bool Collider::BasicBallCollision(const PhysicsObject &fo, const PhysicsObject &so)
 {
 	const float soRadiusP2 = so.M_Radius_Pow2;
 	const sf::Vector2f difVector = (so.M_Position-fo.M_Position);
@@ -66,7 +90,7 @@ bool Collider::BasicBallCollision(const GameObject &fo, const GameObject &so)
 	}
 	return false;
 }
-bool Collider::BasicSquareCollision(const GameObject &fo, const GameObject &so)
+bool Collider::BasicSquareCollision(const PhysicsObject &fo, const PhysicsObject &so)
 {
 	const float ax = fo.M_Position.x;
 	const float ay = fo.M_Position.y;
@@ -80,4 +104,7 @@ bool Collider::BasicSquareCollision(const GameObject &fo, const GameObject &so)
 	return true;
 }
 
-bool Collider::AdvancedCollision(const GameObject &firstObject, const GameObject &secondObject);
+bool Collider::AdvancedCollision(const PhysicsObject &firstObject, const PhysicsObject &secondObject)
+{
+	return false;
+}

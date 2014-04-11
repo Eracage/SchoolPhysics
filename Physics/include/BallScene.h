@@ -1,17 +1,21 @@
 #pragma once
 
 #include <scene.h>
+#include <World.h>
 #include <Ball.h>
 
-class testScene :
+const int ballCount = 1;
+
+class BallScene :
 	public Scene
 {
 public:
-	testScene();
-	~testScene();
+	BallScene();
+	~BallScene();
 	virtual void Update(float dt);
 	virtual void Draw(sf::RenderWindow &window);
 private:
-	std::vector<GameObject> objects;
-};
+	World m_world;
 
+	const int ballCount;
+};

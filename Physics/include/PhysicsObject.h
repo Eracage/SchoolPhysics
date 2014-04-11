@@ -1,53 +1,35 @@
 #pragma once
-#ifndef PHYSICSOBJECT_H_EGE2D
-#define PHYSICSOBJECT_H_EGE2D
-
-#include <World.h>
-#include <PhysicsObject.h>
+#include <SFML\Graphics.hpp>
 
 
-namespace EGE2D
+class PhysicsObject
 {
-	const static float METERS_TO_PIXELS = 50;
-	const static float GROUND_Y_IN_PIXELS = 700;
-	namespace PhysicsShape
-	{
-		enum SHAPE
-		{
-			NO_SHAPE,
-			CIRCLE
-		};
-	}
+public:
+	PhysicsObject();
+	virtual ~PhysicsObject();
 
-	class PhysicsObject
-	{
-	public:
-		PhysicsObject();
-		virtual ~PhysicsObject();
-
-		void CreateImpulse();
-		void MoveTo();
-		void Teleport();
+	void CreateImpulse();
 	
-		virtual void PreUpdate(float dt);
-		void Update(float dt);
-		virtual void PostUpdate(float dt);
+	void PreColUpdate(float timestep, const sf::Vector2f& gravity);
+	void PostColUpdate(float timestep, const sf::Vector2f& gravity);
+	void ApproxUpdate(float time, const sf::Vector2f& gravity);
 
-		virtual void Draw(sf::RenderWindow &window);
+	void setShapePos();
 
-		void setConstantForce(sf::Vector2f force);
-		void UpdateSize();
+	virtual void Draw(sf::RenderWindow &window);
+
+	void setConstantForce(sf::Vector2f force);
+	void UpdateSize();
 
 
 	
-		sf::Vector2f M_ConstantForce;
-		sf::Vector2f M_Velocity;
-		sf::Vector2f M_Position;
-		float M_Radius_Pow2;
-		PhysicsShape::SHAPE M_Shape;
-	protected:
-		sf::Shape* m_shape;
-	};
-}
-
-#endif
+	sf::Vector2f M_ConstantForce;
+	sf::Vector2f M_Velocity;
+	sf::Vector2f M_Position;
+	sf::Vector2f M_ApproxPosition;
+	float M_Radius;
+	float M_Radius_Pow2;
+	float M_Mass;
+protected:
+	sf::CircleShape* m_shape;
+};

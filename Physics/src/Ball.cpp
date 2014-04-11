@@ -10,7 +10,6 @@
 Ball::Ball(float radius, sf::Color color)
 {
 	m_shape = new sf::CircleShape();
-	M_Shape = CIRCLE;
 
 	setRadius(radius);
 

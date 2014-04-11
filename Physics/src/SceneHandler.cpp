@@ -1,5 +1,5 @@
 #include <SceneHandler.h>
-#include <testScene.h>
+#include <BallScene.h>
 
 Scene* SceneHandler::curScene = 0;
 int SceneHandler::lastScene = -1;
@@ -12,13 +12,13 @@ void SceneHandler::update(float dt)
 		if (lastScene != -1)
 			delete curScene;
 
-		curScene = new testScene();
+		curScene = new BallScene();
 		lastScene = 1;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F2)/* && lastScene != 2*/)
 	{
 		delete curScene;
-		curScene = new testScene();
+		curScene = new BallScene();
 		lastScene = 2;
 	}
 	curScene->Update(dt);

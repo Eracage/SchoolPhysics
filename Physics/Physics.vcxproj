@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ball.cpp" />
+    <ClCompile Include="src\BallScene.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -19,20 +20,17 @@
     <ClCompile Include="src\PhysicsObject.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\SceneHandler.cpp" />
-    <ClCompile Include="src\testScene.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Ball.h" />
+    <ClInclude Include="include\BallScene.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\PhysicsObject.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneHandler.h" />
-    <ClInclude Include="include\testScene.h" />
-    <ClInclude Include="include\Vector2.h" />
     <ClInclude Include="include\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
