@@ -18,6 +18,7 @@ public:
 	{
 	}
 	
+	// keep object pointers here, so can modify colliding objects
 	PhysicsObject *A;
 	PhysicsObject *B;
 	// velocity

@@ -32,7 +32,3 @@ float Ball::getRadius()
 {
 	return ((sf::CircleShape*)m_shape)->getRadius()/METERS_TO_PIXELS;
 }
-
-void Ball::PostUpdate(float dt)
-{
-}

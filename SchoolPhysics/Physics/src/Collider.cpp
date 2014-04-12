@@ -23,6 +23,11 @@ Collider::~Collider()
 void Collider::Update()
 {
 	ReserveCollisionSpace();
+	
+	for (int a = m_physObjects.size() - 1; a >= 0; --a)
+	{
+		m_physObjects[a].M_StaticCollision = -1;
+	}
 
 	for (unsigned int iters = 0; iters <= m_iters; ++iters)
 	{
@@ -33,12 +38,12 @@ void Collider::Update()
 				BasicBallCollision(a, b);
 			}
 		}
+		// returns if no collisions happened, so no need to iterate any further
 		if (SolveBallCollisions())
 		{
 			ApplyWallCollision();
 			return;
 		}
-		//ApplyWallCollision();
 	}
 	ApplyWallCollision();
 }
@@ -53,7 +58,7 @@ void Collider::ReserveCollisionSpace()
 	if (m_reservedSpace < m_physObjects.size())
 	{
 		m_collisions.resize(m_physObjects.size(),std::vector<Collision>());
-		for (int i = 0; i < m_collisions.size(); i++)
+		for (size_t i = 0; i < m_collisions.size(); i++)
 		{
 			m_collisions[i].reserve(10);
 		}
@@ -61,6 +66,7 @@ void Collider::ReserveCollisionSpace()
 }
 void Collider::ApplyWallCollision()
 {
+	// go through all objects
 	for (size_t a = 0; a < m_physObjects.size(); ++a)
 	{
 		PhysicsObject& A = m_physObjects[a];
@@ -78,7 +84,7 @@ void Collider::ApplyWallCollision()
 
 		bool staticCol = false;
 
-		if (Wleft>Aleft)
+		if (Wleft>Aleft) // check against borders
 		{
 			staticCol = true;
 			if (A.M_Velocity.x < 0)
@@ -89,7 +95,7 @@ void Collider::ApplyWallCollision()
 			const float newVel = A.M_Velocity.y - friction * sign(A.M_Velocity.y);
 			A.M_Velocity.y = sign(A.M_Velocity.y) == sign(newVel) ? newVel : 0.f;
 		}
-		if (Wright<Aright)
+		if (Wright<Aright) // check against borders
 		{
 			staticCol = true;
 			if (A.M_Velocity.x > 0)
@@ -100,7 +106,7 @@ void Collider::ApplyWallCollision()
 			const float newVel = A.M_Velocity.y - friction * sign(A.M_Velocity.y);
 			A.M_Velocity.y = sign(A.M_Velocity.y) == sign(newVel) ? newVel : 0.f;
 		}
-		if (Wtop<Atop)
+		if (Wtop<Atop) // check against borders
 		{
 			staticCol = true;
 			if (A.M_Velocity.y > 0)
@@ -111,7 +117,7 @@ void Collider::ApplyWallCollision()
 			const float newVel = A.M_Velocity.x - friction * sign(A.M_Velocity.x);
 			A.M_Velocity.x = sign(A.M_Velocity.x) == sign(newVel) ? newVel : 0.f;
 		}
-		if (Wbot>Abot)
+		if (Wbot>Abot) // check against borders
 		{
 			staticCol = true;
 			if (A.M_Velocity.y < 0)
@@ -122,13 +128,15 @@ void Collider::ApplyWallCollision()
 			const float newVel = A.M_Velocity.x - friction * sign(A.M_Velocity.x);
 			A.M_Velocity.x = sign(A.M_Velocity.x) == sign(newVel) ? newVel : 0.f;
 		}
-		A.M_StaticCollision = staticCol;
+		if (staticCol)
+			A.M_StaticCollision = 0;
 	}
 }
 bool Collider::SolveBallCollisions()
 {
 	bool retVal = true;
 	
+	// go through objects, and check if they have collided with something
 	for (size_t i = 0; i < m_physObjects.size(); i++)
 	{
 		if (!m_collisions[i].empty())
@@ -140,6 +148,7 @@ bool Collider::SolveBallCollisions()
 			m_collisions[i].clear();
 		}
 	}
+	// returns if no collisions happened, so no need to iterate any further
 	return retVal;
 }
 void Collider::SolveBall(const size_t i)
@@ -164,13 +173,24 @@ void Collider::SolveBall(const size_t i)
 			const sf::Vector2f A_B = colVec[i].A_B;
 			const float A_B_Length = sqrt(Dot(colVec[i].A_B,colVec[i].A_B));
 
-			float pushValue = 0.5f;
-			if (A->M_StaticCollision == colVec[i].B->M_StaticCollision)
-				pushValue = 0.5f;
-			else if (A->M_StaticCollision && !colVec[i].B->M_StaticCollision)
-				pushValue = 1.0f;
-			else if (!A->M_StaticCollision && colVec[i].B->M_StaticCollision)
-				pushValue = 0.0f;
+			//static collision objects don't "squish" when under pressure
+			const unsigned int Astatic = A->M_StaticCollision;
+			const unsigned int Bstatic = colVec[i].B->M_StaticCollision;
+
+			float pushValue = 0.6f;
+			if (Astatic == Bstatic)
+				pushValue = 0.8f;
+			//else if (Astatic < Bstatic)
+			//{
+			//	pushValue = 0.9f;
+			//	colVec[i].B->M_StaticCollision = Astatic+1;
+			//}
+			//else if (Astatic > Bstatic)
+			//{
+			//	pushValue = 0.1f;
+			//	colVec[i].A->M_StaticCollision = Bstatic+1;
+			//}
+
 
 			const sf::Vector2f givenVel = Dot(iVel,A_B)/Dot(A_B,A_B)*A_B * weight1Col;
 			colVec[i].B->M_Velocity += givenVel;

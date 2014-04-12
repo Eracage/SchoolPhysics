@@ -11,7 +11,7 @@ World::World()
 	setWorldBackGroundColor();
 	setWorldBorder();
 	setIterationCount();
-	toggleApproxUpdate();
+	toggleApproxUpdate(true);
 	m_physObjects.reserve(1000);
 }
 
@@ -67,12 +67,17 @@ PhysicsObject& World::accessObject(int ID)
 	return m_physObjects[ID];
 }
 
-void World::Update(float dt)
+int World::Update(float dt)
 {
+	int retVal = 0;
 	m_time+=dt;
 	if (m_time > m_timestep)
 	{
-		m_time = 0.f;
+		while (m_time > m_timestep)
+		{
+			m_time -= m_timestep;
+			retVal++;
+		}
 		for (auto obj = m_physObjects.begin(); obj != m_physObjects.end(); ++obj)
 		{
 			(*obj).PreColUpdate(m_timestep, m_gravity);
@@ -93,6 +98,7 @@ void World::Update(float dt)
 			}
 		}
 	}
+	return retVal;
 }
 
 int World::ballCount()

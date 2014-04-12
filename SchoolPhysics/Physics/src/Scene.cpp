@@ -15,8 +15,8 @@ Scene::Scene(void)
 
 	m_textPrivate.setFont(m_font);
 	m_textPrivate.setColor(sf::Color::White);
-	m_textPrivate.setScale(0.8f,0.8f);
-	m_textPrivate.setPosition(0,360);
+	m_textPrivate.setScale(0.6f,0.6f);
+	m_textPrivate.setPosition(0,240);
 }
 
 

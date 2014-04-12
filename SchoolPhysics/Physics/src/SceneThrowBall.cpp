@@ -9,7 +9,7 @@ SceneThrowBall::SceneThrowBall()
 	m_throwBall(nullptr)
 {
 	m_world.setGravity(sf::Vector2f(0.f, -20.f));
-	m_world.setTimeStep(0.01f);
+	m_world.setTimeStep(.01f);
 
 }
 
@@ -29,6 +29,7 @@ void SceneThrowBall::TextUpdate()
 	text.append("\n starting point of the throw");
 	text.append("\nDrag to choose starting speed");
 	text.append("\nRelease MB1 to throw ball");
+	text.append("\n");
 
 	setOwnText(text);
 }
