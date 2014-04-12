@@ -6,7 +6,7 @@
 
 static float METERS_TO_PIXELS = 20;
 const static float GROUND_Y_IN_PIXELS = 700;
-const static float GROUND_MIDX_IN_PIXELS = 640;
+const static float GROUND_MIDX_IN_PIXELS = 860;
 
 class World
 {
@@ -17,7 +17,7 @@ public:
 	void setTimeStep(float TimeStep);
 	void setIterationCount(unsigned int CollisionIterations = 4);
 	void toggleApproxUpdate(bool value = false);
-	void setWorldSize(sf::Vector2f WorldSize_Meters = sf::Vector2f(22.f,30.f));
+	void setWorldSize(sf::Vector2f WorldSize_Meters = sf::Vector2f(40.f,30.f));
 
 	void addToWorld(PhysicsObject Object);
 
@@ -26,6 +26,8 @@ public:
 
 	void setWorldBackGroundColor(sf::Color Background = sf::Color::Black);
 	void setWorldBorder(sf::Color Borders = sf::Color::White, float BorderThickness_Pixels = 10);
+
+	sf::Vector2f getMousePositionInWorld(sf::RenderWindow &window);
 
 
 private:

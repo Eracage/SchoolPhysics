@@ -19,7 +19,10 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PhysicsObject.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SceneBallCollisions.cpp" />
     <ClCompile Include="src\SceneHandler.cpp" />
+    <ClCompile Include="src\SceneLotsOfBalls.cpp" />
+    <ClCompile Include="src\SceneThrowBall.cpp" />
     <ClCompile Include="src\World.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -30,8 +33,11 @@
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\PhysicsObject.h" />
     <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneBallCollisions.h" />
     <ClInclude Include="include\SceneHandler.h" />
     <ClInclude Include="include\DebugTimer.h" />
+    <ClInclude Include="include\SceneLotsOfBalls.h" />
+    <ClInclude Include="include\SceneThrowBall.h" />
     <ClInclude Include="include\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

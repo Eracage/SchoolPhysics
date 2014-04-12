@@ -106,3 +106,16 @@ void World::setWorldBorder(sf::Color Borders, float BorderThickness_Pixels)
 	m_worldRect.setOutlineThickness(BorderThickness_Pixels);
 	m_worldRect.setOutlineColor(Borders);
 }
+
+sf::Vector2f World::getMousePositionInWorld(sf::RenderWindow &window)
+{
+	sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window));
+
+	//mousePos.y *= -1;
+	mousePos.x -= GROUND_MIDX_IN_PIXELS;
+	mousePos.y -= GROUND_Y_IN_PIXELS;
+	mousePos.y *= -1;
+	mousePos /= METERS_TO_PIXELS;
+
+	return mousePos;
+}

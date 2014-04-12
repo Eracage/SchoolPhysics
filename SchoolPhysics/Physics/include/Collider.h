@@ -16,6 +16,7 @@ public:
 	};
 
 	void Update();
+
 	void setIterationCount(unsigned int CollisionIterations);
 
 
@@ -25,6 +26,7 @@ private:
 	void ReserveCollisionSpace();
 	void ApplyWallCollision();
 	bool SolveBallCollisions();
+	void SolveBall(const size_t index);
 	bool BasicBallCollision(const size_t a, const size_t b);
 
 	const sf::Rect<float>& m_worldLimits;

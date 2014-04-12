@@ -3,7 +3,6 @@
 
 PhysicsObject::PhysicsObject()
 	: M_Velocity(0.f,0.f),
-	  M_OldVelocity(0.f,0.f),
 	  M_ConstantForce(0.f,0.f),
 	  M_Position(0.f,0.f),
 	  M_Bounciness(0.8f),

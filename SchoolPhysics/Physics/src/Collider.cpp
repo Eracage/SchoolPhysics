@@ -5,7 +5,6 @@ const float Dot(const sf::Vector2f a, const sf::Vector2f b)
 {
 	return a.x * b.x + b.y * a.y;
 }
-
 const int sign(const float value)
 {
 	return (0.f<value)-(value<0.f);
@@ -18,7 +17,6 @@ Collider::Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& Wor
 	m_reservedSpace(0),
 	m_sleepV(sleepVelocity)
 {}
-
 Collider::~Collider()
 {}
 
@@ -27,7 +25,7 @@ void Collider::Update()
 	DebugTIMER
 	ReserveCollisionSpace();
 
-	for (unsigned int iters = 0; iters <= /*m_iters*/0; ++iters)
+	for (unsigned int iters = 0; iters <= m_iters; ++iters)
 	{
 		for (size_t a = 0; a < m_physObjects.size(); ++a)
 		{
@@ -37,12 +35,15 @@ void Collider::Update()
 			}
 		}
 		if (SolveBallCollisions())
-			break;
-		ApplyWallCollision();
+		{
+			ApplyWallCollision();
+			return;
+		}
+		//ApplyWallCollision();
 	}
-	
 	ApplyWallCollision();
 }
+
 void Collider::setIterationCount(unsigned int CollisionIterations)
 {
 	m_iters = CollisionIterations;
@@ -59,7 +60,6 @@ void Collider::ReserveCollisionSpace()
 		}
 	}
 }
-
 void Collider::ApplyWallCollision()
 {
 	for (size_t a = 0; a < m_physObjects.size(); ++a)
@@ -126,59 +126,64 @@ void Collider::ApplyWallCollision()
 		A.M_StaticCollision = staticCol;
 	}
 }
-
 bool Collider::SolveBallCollisions()
 {
 	bool retVal = true;
-	const sf::Vector2f zeroVec(0,0);
 	
-	for (int i = m_physObjects.size()-1; i >=0; --i)
-	{
-		if (!m_collisions[i].empty())
-		{
-			retVal = false;
-			m_collisions[i][0].A->M_Velocity = zeroVec;
-		}
-	}
 	for (size_t i = 0; i < m_physObjects.size(); i++)
 	{
 		if (!m_collisions[i].empty())
 		{
-			std::vector<Collision>& colVec = m_collisions[i];
-			
-			//const int collisions = colVec.size();
-			//const float weight1Col = 1 / pow(2.f,collisions);
+			retVal = false;
 
-			const PhysicsObject* A = colVec[0].A;
-			const sf::Vector2f Apos = A->M_Position;
-
-			for (int i = 0; i < colVec.size(); i++)
-			{
-				const sf::Vector2f A_B = colVec[i].A_B;
-				const sf::Vector2f tan = sf::Vector2f(A_B.y, -A_B.x);
-				const float A_B_Length = sqrt(Dot(colVec[i].A_B,colVec[i].A_B));
-
-				float pushValue = 0.5f;
-				if (A->M_StaticCollision == colVec[i].B->M_StaticCollision)
-					pushValue = 0.5f;
-				else if (A->M_StaticCollision && !colVec[i].B->M_StaticCollision)
-					pushValue = 1.0f;
-				else if (!A->M_StaticCollision && colVec[i].B->M_StaticCollision)
-					pushValue = 0.0f;
-
-				colVec[i].A->M_Velocity += Dot(colVec[i].Av,tan)/Dot(tan,tan)*tan;
-				colVec[i].B->M_Velocity += Dot(colVec[i].Av,A_B)/Dot(A_B,A_B)*A_B;
-
-				colVec[i].B->M_Position += A_B*(pushValue*(colVec[i].combRad-A_B_Length)/A_B_Length);
-			}
-
+			SolveBall(i);
 
 			m_collisions[i].clear();
 		}
 	}
 	return retVal;
 }
+void Collider::SolveBall(const size_t i)
+{
+	std::vector<Collision>& colVec = m_collisions[i];
+			
+	const int collisions = colVec.size();
+	const float weight1Col = 1.f / collisions;
 
+	const PhysicsObject* A = colVec[0].A;
+	const sf::Vector2f Apos = A->M_Position;
+			
+	sf::Vector2f oVel = colVec[0].Av;
+
+	//for (int iters = 0; iters < collisions; iters++)
+	//{
+		// copy velocity to use in iteration
+		const sf::Vector2f iVel = oVel; 
+
+		for (int i = 0; i < collisions; i++)
+		{
+			const sf::Vector2f A_B = colVec[i].A_B;
+			const float A_B_Length = sqrt(Dot(colVec[i].A_B,colVec[i].A_B));
+
+			float pushValue = 0.5f;
+			if (A->M_StaticCollision == colVec[i].B->M_StaticCollision)
+				pushValue = 0.5f;
+			else if (A->M_StaticCollision && !colVec[i].B->M_StaticCollision)
+				pushValue = 1.0f;
+			else if (!A->M_StaticCollision && colVec[i].B->M_StaticCollision)
+				pushValue = 0.0f;
+
+			const sf::Vector2f givenVel = Dot(iVel,A_B)/Dot(A_B,A_B)*A_B * weight1Col;
+			colVec[i].B->M_Velocity += givenVel;
+			oVel -= givenVel;
+
+			colVec[i].B->M_Position += A_B*(pushValue*(colVec[i].combRad-A_B_Length)/A_B_Length);
+		}
+	//}
+
+
+	colVec[0].A->M_Velocity += oVel-colVec[0].Av;
+}
 bool Collider::BasicBallCollision(const size_t a, const size_t b)
 {
 	const PhysicsObject& A = m_physObjects[a];

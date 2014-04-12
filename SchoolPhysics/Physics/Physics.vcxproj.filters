@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{6be15266-37e2-4af4-8740-da0209020d80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Ball.cpp">
@@ -43,7 +46,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\BallScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneThrowBall.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneLotsOfBalls.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneBallCollisions.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,11 +83,20 @@
     <ClInclude Include="include\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BallScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\DebugTimer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BallScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneThrowBall.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneLotsOfBalls.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SceneBallCollisions.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

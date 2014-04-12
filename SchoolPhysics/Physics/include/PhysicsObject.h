@@ -24,7 +24,6 @@ public:
 
 	
 	sf::Vector2f M_ConstantForce;
-	sf::Vector2f M_OldVelocity;
 	sf::Vector2f M_Velocity;
 	sf::Vector2f M_Position;
 	sf::Vector2f M_ApproxPosition;

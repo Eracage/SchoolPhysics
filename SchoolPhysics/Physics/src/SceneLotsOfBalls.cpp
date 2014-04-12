@@ -1,21 +1,21 @@
-#include <BallScene.h>
+#include <SceneLotsOfBalls.h>
 #include <iostream>
 
 
-BallScene::BallScene()
-	: ballCount(50)
+SceneLotsOfBalls::SceneLotsOfBalls()
+	: ballCount(100)
 {
 	m_world.setGravity(sf::Vector2f(0.f, -20.f));
 	m_world.setTimeStep(0.01f);
+	m_world.setIterationCount(10);
 
 	std::vector<Ball> balls;
 	
 	for (int i = 0; i < ballCount; i++)
 	{
 		balls.push_back(Ball((rand()%81+20)/50.f,sf::Color(rand()%256,rand()%256,rand()%256,255)));
-		balls.back().setRadius((rand()%41+10)/50.f);
-		balls.back().M_Velocity = sf::Vector2f(rand()%21-10,rand()%21-10)/50.f;
-		balls.back().M_Position = sf::Vector2f(rand()%11-5,rand()%10+1);
+		balls.back().M_Velocity = sf::Vector2f(rand()%41-20,rand()%41-20)/20.f;
+		balls.back().M_Position = sf::Vector2f(rand()%41-20,rand()%30+1);
 		balls.back().setShapePos();
 	}
 
@@ -24,17 +24,17 @@ BallScene::BallScene()
 }
 
 
-BallScene::~BallScene()
+SceneLotsOfBalls::~SceneLotsOfBalls()
 {
 }
 
 
-void BallScene::Update(float dt)
+void SceneLotsOfBalls::Update(float dt)
 {
 	std::cout<<"dt:"<<dt<<std::endl;
 	m_world.Update(dt);
 }
-void BallScene::Draw(sf::RenderWindow &window)
+void SceneLotsOfBalls::Draw(sf::RenderWindow &window)
 {
 	m_world.Draw(window);
 }
