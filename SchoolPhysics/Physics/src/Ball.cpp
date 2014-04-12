@@ -13,7 +13,7 @@ Ball::Ball(float radius, sf::Color color)
 
 	setRadius(radius);
 
-    m_shape->setFillColor(sf::Color::Green);
+    m_shape->setFillColor(color);
 }
 
 

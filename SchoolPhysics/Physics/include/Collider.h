@@ -5,7 +5,7 @@ class Collider
 {
 public:
 
-	Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& WorldLimits);
+	Collider(std::vector<PhysicsObject>& PhysObjects, sf::Rect<float>& WorldLimits, float sleepVelocity);
 	~Collider();
 
 	enum CollisionQuality
@@ -24,7 +24,7 @@ public:
 private:
 	void ReserveCollisionSpace();
 	void ApplyWallCollision();
-	void SolveBallCollisions();
+	bool SolveBallCollisions();
 	bool BasicBallCollision(const size_t a, const size_t b);
 
 	const sf::Rect<float>& m_worldLimits;
@@ -32,5 +32,6 @@ private:
 	unsigned int m_iters;
 	std::vector<std::vector<Collision>> m_collisions;
 	unsigned int m_reservedSpace;
+	float m_sleepV;
 };
 

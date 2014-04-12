@@ -74,5 +74,8 @@
     <ClInclude Include="include\BallScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\DebugTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

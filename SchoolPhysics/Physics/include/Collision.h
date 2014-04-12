@@ -5,35 +5,28 @@
 class Collision
 {
 public:
-	Collision(PhysicsObject* GOA, PhysicsObject* GOB)
+	Collision(PhysicsObject* GOA, PhysicsObject* GOB, const float CombRad)
 		: A(GOA),
-		B(GOB)
+		B(GOB),
+		combRad(CombRad)
 	{
-		//Av = A.M_Velocity;
-		//Bv = B.M_Velocity;
-		//Ap = A.M_Position;
-		//Bp = B.M_Position;
+		Bv = B->M_Velocity;
+		A_B = B->M_Position - A->M_Position;
+		Av = A->M_Velocity;
 	}
 	~Collision()
 	{
-	}
-	void Copy()
-	{
-		//Av = A.M_Velocity;
-		//Bv = B.M_Velocity;
-		//Ap = A.M_Position;
-		//Bp = B.M_Position;
 	}
 	
 	PhysicsObject *A;
 	PhysicsObject *B;
 	// velocity
 	sf::Vector2f Av;
-	// velocity
 	sf::Vector2f Bv;
-	// position
-	sf::Vector2f Ap;
-	// position
-	sf::Vector2f Bp;
+	// difVector
+	sf::Vector2f A_B;
+	// combined radius
+	float combRad;
+
 };
 

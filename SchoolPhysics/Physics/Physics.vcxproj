@@ -31,6 +31,7 @@
     <ClInclude Include="include\PhysicsObject.h" />
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneHandler.h" />
+    <ClInclude Include="include\DebugTimer.h" />
     <ClInclude Include="include\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -91,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>SFML_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../SFML-2.1/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)../SFML-2.1/include;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

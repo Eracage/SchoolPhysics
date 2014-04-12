@@ -4,8 +4,6 @@
 #include <World.h>
 #include <Ball.h>
 
-const int ballCount = 1;
-
 class BallScene :
 	public Scene
 {

@@ -2,10 +2,13 @@
 #include <World.h>
 
 PhysicsObject::PhysicsObject()
-	: M_Velocity(0,0),
-	  M_ConstantForce(0,0),
-	  M_Position(0,0),
-	  M_Bounciness(0.95),
+	: M_Velocity(0.f,0.f),
+	  M_OldVelocity(0.f,0.f),
+	  M_ConstantForce(0.f,0.f),
+	  M_Position(0.f,0.f),
+	  M_Bounciness(0.8f),
+	  M_Friction(0.02f),
+	  M_StaticCollision(false),
 	  m_shape(nullptr)
 {}
 
@@ -37,7 +40,7 @@ void PhysicsObject::ApproxUpdate(float time, const sf::Vector2f& gravity)
 void PhysicsObject::setShapePos()
 {
 	m_shape->setPosition(sf::Vector2f(
-		M_Position.x*METERS_TO_PIXELS,
+		GROUND_MIDX_IN_PIXELS + M_Position.x*METERS_TO_PIXELS,
 		GROUND_Y_IN_PIXELS-M_Position.y*METERS_TO_PIXELS));
 }
 
@@ -55,7 +58,6 @@ void PhysicsObject::setConstantForce(sf::Vector2f force)
 void PhysicsObject::UpdateSize()
 {
 	M_Radius = m_shape->getRadius() / METERS_TO_PIXELS;
-	M_Radius_Pow2 = M_Radius*M_Radius;
-	M_Mass = 4.f*3.14159f*M_Radius_Pow2*M_Radius/3.f;
+	M_Mass = 4.f*3.14159f*M_Radius*M_Radius*M_Radius/3.f;
 }
 

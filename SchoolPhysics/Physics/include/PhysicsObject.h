@@ -24,13 +24,15 @@ public:
 
 	
 	sf::Vector2f M_ConstantForce;
+	sf::Vector2f M_OldVelocity;
 	sf::Vector2f M_Velocity;
 	sf::Vector2f M_Position;
 	sf::Vector2f M_ApproxPosition;
 	float M_Radius;
-	float M_Radius_Pow2;
 	float M_Mass;
 	float M_Bounciness;
+	float M_Friction;
+	bool M_StaticCollision;
 protected:
 	sf::CircleShape* m_shape;
 };

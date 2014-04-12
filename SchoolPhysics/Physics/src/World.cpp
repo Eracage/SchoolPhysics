@@ -1,10 +1,11 @@
 #include <World.h>
+#include <DebugTimer.h>
 
 World::World()
 	: m_gravity(0.0f,0.0f),
 	m_time(0.f),
 	m_timestep(0.02f),
-	m_collider(m_physObjects, m_worldLimits)
+	m_collider(m_physObjects, m_worldLimits, 0.01f)
 {
 	setWorldSize();
 	setWorldBackGroundColor();
@@ -42,12 +43,12 @@ void World::toggleApproxUpdate(bool value)
 void World::setWorldSize(sf::Vector2f size)
 {
 	m_worldLimits = sf::Rect<float>(
-		GROUND_MIDX_IN_PIXELS/METERS_TO_PIXELS-size.x/2.f,
+		-size.x/2.f,
 		size.y,
 		size.x,
 		size.y);
 	m_worldRect.setPosition(
-		m_worldLimits.left * METERS_TO_PIXELS, 
+		GROUND_MIDX_IN_PIXELS + m_worldLimits.left * METERS_TO_PIXELS, 
 		GROUND_Y_IN_PIXELS - (m_worldLimits.height) * METERS_TO_PIXELS);
 	m_worldRect.setSize(sf::Vector2f(
 		m_worldLimits.width*METERS_TO_PIXELS, 

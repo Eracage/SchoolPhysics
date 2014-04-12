@@ -21,6 +21,8 @@ void SceneHandler::update(float dt)
 		curScene = new BallScene();
 		lastScene = 2;
 	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		dt /= 20;
 	curScene->Update(dt);
 }
 
