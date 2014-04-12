@@ -12,6 +12,7 @@ public:
 	~SceneThrowBall();
 	virtual void Update(float dt);
 	virtual void Draw(sf::RenderWindow &window);
+	void TextUpdate();
 
 	bool MB1Pressed();
 	bool MB1Released();

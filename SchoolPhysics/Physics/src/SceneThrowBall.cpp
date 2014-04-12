@@ -18,6 +18,21 @@ SceneThrowBall::~SceneThrowBall()
 {
 }
 
+void SceneThrowBall::TextUpdate()
+{
+	std::string text("Ball throwing scene");
+	text.append("\n");
+	text.append("\nBalls: ").append(std::to_string((_Longlong) m_world.ballCount()));
+	text.append("\nFPS: ").append(std::to_string((long double)fps));
+	text.append("\n");
+	text.append("\nPress MB1 on screen to choose");
+	text.append("\n starting point of the throw");
+	text.append("\nDrag to choose starting speed");
+	text.append("\nRelease MB1 to throw ball");
+
+	setOwnText(text);
+}
+
 
 void SceneThrowBall::Update(float dt)
 {

@@ -55,9 +55,16 @@ void World::setWorldSize(sf::Vector2f size)
 		m_worldLimits.height*METERS_TO_PIXELS));
 }
 
-void World::addToWorld(PhysicsObject Object)
+int World::addToWorld(PhysicsObject Object)
 {
+	int retVal = m_physObjects.size();
 	m_physObjects.push_back(Object);
+	return retVal;
+}
+
+PhysicsObject& World::accessObject(int ID)
+{
+	return m_physObjects[ID];
 }
 
 void World::Update(float dt)
@@ -86,6 +93,11 @@ void World::Update(float dt)
 			}
 		}
 	}
+}
+
+int World::ballCount()
+{
+	return m_physObjects.size();
 }
 
 void World::Draw(sf::RenderWindow &window)

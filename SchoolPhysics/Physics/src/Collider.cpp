@@ -22,7 +22,6 @@ Collider::~Collider()
 
 void Collider::Update()
 {
-	DebugTIMER
 	ReserveCollisionSpace();
 
 	for (unsigned int iters = 0; iters <= m_iters; ++iters)

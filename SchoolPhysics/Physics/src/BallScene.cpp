@@ -21,6 +21,7 @@ BallScene::BallScene()
 
 	for (size_t i = 0; i < balls.size(); i++)
 		m_world.addToWorld(balls[i]);
+
 }
 
 
@@ -28,10 +29,22 @@ BallScene::~BallScene()
 {
 }
 
+void BallScene::TextUpdate()
+{
+
+	std::string text("Basic Ball Physics");
+	text.append("\n");
+	text.append("\nBalls:").append(std::to_string((_Longlong) m_world.ballCount()));
+	text.append("\nFPS: ").append(std::to_string((long double)fps));
+	text.append("\n");
+	text.append("\n");
+
+	setOwnText(text);
+}
+
 
 void BallScene::Update(float dt)
 {
-	std::cout<<"dt:"<<dt<<std::endl;
 	m_world.Update(dt);
 }
 void BallScene::Draw(sf::RenderWindow &window)

@@ -19,8 +19,10 @@ public:
 	void toggleApproxUpdate(bool value = false);
 	void setWorldSize(sf::Vector2f WorldSize_Meters = sf::Vector2f(40.f,30.f));
 
-	void addToWorld(PhysicsObject Object);
+	int addToWorld(PhysicsObject Object);
+	PhysicsObject& accessObject(int ID);
 
+	int ballCount();
 	void Update(float dt);
 	void Draw(sf::RenderWindow &window);
 

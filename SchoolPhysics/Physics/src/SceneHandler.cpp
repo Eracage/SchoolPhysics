@@ -9,8 +9,10 @@ Scene* SceneHandler::curScene = 0;
 int SceneHandler::lastScene = -1;
 
 
+
 void SceneHandler::update(float dt)
 {
+
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) || lastScene == -1)
 	{
 		if (lastScene != -1)
@@ -41,11 +43,11 @@ void SceneHandler::update(float dt)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		dt /= 20;
-	curScene->Update(dt);
+	curScene->UpdateScene(dt);
 }
 
 void SceneHandler::draw(sf::RenderWindow &window)
 {
-	curScene->Draw(window);
+	curScene->DrawScene(window);
 }
 

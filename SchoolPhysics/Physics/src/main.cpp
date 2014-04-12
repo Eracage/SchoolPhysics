@@ -3,10 +3,18 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Physics by Esko Haila");
+
 	sf::Clock clock;
-	sf::CircleShape asdf;
 	float dt = 0.01f;
+
+	std::string publicText("Switch scene with F buttons");
+	publicText.append("\nF1 Basic Ball scene");
+	publicText.append("\nF2 Ball collision scene (no gravity)");
+	publicText.append("\nF3 Lots of balls");
+	publicText.append("\nF4 Ball throwing scene");
+	Scene::setPublicText(publicText);
+
     while (window.isOpen())
     {
         sf::Event event;

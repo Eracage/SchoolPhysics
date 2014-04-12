@@ -28,6 +28,18 @@ SceneBallCollisions::~SceneBallCollisions()
 {
 }
 
+void SceneBallCollisions::TextUpdate()
+{
+	
+	std::string text("Ball collision scene (no gravity)");
+	text.append("\n");
+	text.append("\nBalls: ").append(std::to_string((_Longlong) m_world.ballCount()));
+	text.append("\nFPS: ").append(std::to_string((long double)fps));
+	text.append("\n");
+	text.append("\n");
+
+	setOwnText(text);
+}
 
 void SceneBallCollisions::Update(float dt)
 {

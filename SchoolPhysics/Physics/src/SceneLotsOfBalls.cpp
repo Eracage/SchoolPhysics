@@ -3,11 +3,12 @@
 
 
 SceneLotsOfBalls::SceneLotsOfBalls()
-	: ballCount(100)
+	: ballCount(120)
+
 {
 	m_world.setGravity(sf::Vector2f(0.f, -20.f));
-	m_world.setTimeStep(0.01f);
-	m_world.setIterationCount(10);
+	m_world.setTimeStep(0.005f);
+	m_world.setIterationCount(60);
 
 	std::vector<Ball> balls;
 	
@@ -21,17 +22,30 @@ SceneLotsOfBalls::SceneLotsOfBalls()
 
 	for (size_t i = 0; i < balls.size(); i++)
 		m_world.addToWorld(balls[i]);
-}
 
+	
+}
 
 SceneLotsOfBalls::~SceneLotsOfBalls()
 {
 }
 
+void SceneLotsOfBalls::TextUpdate()
+{
+	std::string text("Lots of balls");
+	text.append("\n");
+	text.append("\nBalls: ").append(std::to_string((_Longlong) m_world.ballCount()));
+	text.append("\nFPS: ").append(std::to_string((long double)fps));
+	text.append("\n");
+	text.append("\n");
+
+	setOwnText(text);
+}
+
 
 void SceneLotsOfBalls::Update(float dt)
 {
-	std::cout<<"dt:"<<dt<<std::endl;
+
 	m_world.Update(dt);
 }
 void SceneLotsOfBalls::Draw(sf::RenderWindow &window)
