@@ -14,6 +14,7 @@ public:
 	virtual void Draw(sf::RenderWindow &window);
 	void TextUpdate();
 	void ManageWorld();
+	void AddBall();
 private:
 	World m_world;
 

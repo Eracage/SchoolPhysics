@@ -24,25 +24,44 @@ void Collider::Update()
 {
 	ReserveCollisionSpace();
 	
-	for (int a = m_physObjects.size() - 1; a >= 0; --a)
+	for (int a = static_cast<int>(m_physObjects.size()) - 1; a >= 0; --a)
 	{
-		m_physObjects[a].M_StaticCollision = -1;
+		m_physObjects[a].M_StaticCollision = static_cast<unsigned int>(-1);
 	}
 
 	for (unsigned int iters = 0; iters <= m_iters; ++iters)
 	{
-		for (size_t a = 0; a < m_physObjects.size(); ++a)
+		if (iters%2 == 0)
 		{
-			for (size_t b = a+1; b < m_physObjects.size(); ++b)
+			for (int a = 0; a < static_cast<int>(m_physObjects.size()); ++a)
 			{
-				BasicBallCollision(a, b);
+				for (int b = a+1; b < static_cast<int>(m_physObjects.size()); ++b)
+				{
+					BasicBallCollision(a, b);
+				}
+			}
+			// returns if no collisions happened, so no need to iterate any further
+			if (SolveBallCollisions())
+			{
+				ApplyWallCollision();
+				return;
 			}
 		}
-		// returns if no collisions happened, so no need to iterate any further
-		if (SolveBallCollisions())
+		else
 		{
-			ApplyWallCollision();
-			return;
+			for (int a = static_cast<int>(m_physObjects.size())-1; a > -1; --a)
+			{
+				for (int b = a-1; b > -1; --b)
+				{
+					BasicBallCollision(a, b);
+				}
+			}
+			// returns if no collisions happened, so no need to iterate any further
+			if (SolveBallCollisions())
+			{
+				ApplyWallCollision();
+				return;
+			}
 		}
 	}
 	ApplyWallCollision();
@@ -151,9 +170,9 @@ bool Collider::SolveBallCollisions()
 	// returns if no collisions happened, so no need to iterate any further
 	return retVal;
 }
-void Collider::SolveBall(const size_t i)
+void Collider::SolveBall(const int index)
 {
-	std::vector<Collision>& colVec = m_collisions[i];
+	std::vector<Collision>& colVec = m_collisions[index];
 			
 	const int collisions = colVec.size();
 	const float weight1Col = 1.f / collisions;
@@ -177,15 +196,15 @@ void Collider::SolveBall(const size_t i)
 			const unsigned int Astatic = A->M_StaticCollision;
 			const unsigned int Bstatic = colVec[i].B->M_StaticCollision;
 
-			float pushValue = 0.6f;
+			float pushValue;
 			if (Astatic == Bstatic)
-				pushValue = 0.8f;
+				pushValue = 0.5f;
 			//else if (Astatic < Bstatic)
 			//{
 			//	pushValue = 0.9f;
 			//	colVec[i].B->M_StaticCollision = Astatic+1;
 			//}
-			//else if (Astatic > Bstatic)
+			//else
 			//{
 			//	pushValue = 0.1f;
 			//	colVec[i].A->M_StaticCollision = Bstatic+1;
@@ -203,21 +222,41 @@ void Collider::SolveBall(const size_t i)
 
 	colVec[0].A->M_Velocity += oVel-colVec[0].Av;
 }
-bool Collider::BasicBallCollision(const size_t a, const size_t b)
+void Collider::BasicBallCollision(const int a, const int b)
 {
-	const PhysicsObject& A = m_physObjects[a];
 	const PhysicsObject& B = m_physObjects[b];
+	const PhysicsObject& A = m_physObjects[a];
+
+	if (!AABB(A,B))
+		return;
+	
 
 	const float bRadius = B.M_Radius;
 	const sf::Vector2f difVector = (B.M_Position-A.M_Position);
 	const float aRadius = A.M_Radius;
 	const float difVecLengthPow2 = Dot(difVector,difVector);
 	const float combRad = aRadius + bRadius;
-
-	if (difVecLengthPow2 < pow(combRad,2))
+	const float combRadP2 = combRad*combRad;
+	if (difVecLengthPow2 < combRadP2)
 	{
 		m_collisions[a].push_back(Collision(&m_physObjects[a],&m_physObjects[b], combRad));
 		m_collisions[b].push_back(Collision(&m_physObjects[b],&m_physObjects[a], combRad));
 	}
-	return false;
+}
+
+bool Collider::AABB(const PhysicsObject& A, const PhysicsObject& B) const
+{
+	const float Ap[3] = {A.M_Position.x,A.M_Position.y, A.M_Radius};
+	const float Bp[3] = {B.M_Position.x,B.M_Position.y, B.M_Radius};
+
+	if (Ap[0]+Ap[2] < Bp[0] - Bp[2])
+		return false;
+	if (Ap[0]-Ap[2] > Bp[0] + Bp[2])
+		return false;
+	if (Ap[1]+Ap[2] < Bp[1] - Bp[2])
+		return false;
+	if (Ap[1]-Ap[2] > Bp[1] + Bp[2])
+		return false;
+
+	return true;
 }

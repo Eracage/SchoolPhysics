@@ -7,6 +7,7 @@ World::World()
 	m_timestep(0.02f),
 	m_collider(m_physObjects, m_worldLimits, 0.01f)
 {
+	setGravity();
 	setWorldSize();
 	setWorldBackGroundColor();
 	setWorldBorder();

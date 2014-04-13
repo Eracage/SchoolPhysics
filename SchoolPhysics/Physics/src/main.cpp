@@ -3,7 +3,7 @@
 
 int main()
 {
-	srand(time(0));
+	srand(static_cast<unsigned int>(time(0)));
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Physics by Esko Haila");
 
 	sf::Clock clock;

@@ -8,7 +8,7 @@ SceneThrowBall::SceneThrowBall()
 	m_window(nullptr),
 	m_throwBall(nullptr)
 {
-	m_world.setGravity(sf::Vector2f(0.f, -20.f));
+	m_world.setGravity(sf::Vector2f(0.f, -10.f));
 	m_world.setTimeStep(.01f);
 
 }
@@ -50,7 +50,10 @@ void SceneThrowBall::Update(float dt)
 		else if (MB1Released())
 		{
 			m_throwBall->M_Velocity = m_mouseSPos - m_world.getMousePositionInWorld(*m_window);
-				
+			
+			m_throwBall->M_Velocity.x = m_throwBall->M_Velocity.x * m_throwBall->M_Velocity.x;
+			m_throwBall->M_Velocity.y = m_throwBall->M_Velocity.y * m_throwBall->M_Velocity.y;
+
 			m_world.addToWorld(*m_throwBall);
 			delete m_throwBall;
 			m_throwBall = nullptr;

@@ -6,7 +6,7 @@ BallScene::BallScene()
 	: ballCount(50),
 	mode(2)
 {
-	m_world.setGravity(sf::Vector2f(0.f, -20.f));
+	m_world.setGravity(sf::Vector2f(0.f, -10.f));
 	m_world.setTimeStep(0.01f);
 
 	std::vector<Ball> balls;
@@ -15,11 +15,11 @@ BallScene::BallScene()
 	{
 		balls.push_back(Ball((rand()%81+20)/50.f,sf::Color(rand()%256,rand()%256,rand()%256,255)));
 		balls.back().setRadius((rand()%41+10)/50.f);
-		balls.back().M_Velocity = sf::Vector2f(rand()%21-10,rand()%21-10)/50.f;
-		balls.back().M_Position = sf::Vector2f(rand()%11-5,rand()%10+1);
+		balls.back().M_Velocity = sf::Vector2f(static_cast<float>(rand()%21-10),static_cast<float>((rand()%21-10)))/50.f;
+		balls.back().M_Position = sf::Vector2f(static_cast<float>(rand()%11-5),static_cast<float>(rand()%10+1));
 		balls.back().setShapePos();
 	}
-	balls[0].setConstantForce(sf::Vector2f(0.f,20.f));
+	balls[0].setConstantForce(sf::Vector2f(0.f,10.f));
 
 	for (size_t i = 0; i < balls.size(); i++)
 		m_world.addToWorld(balls[i]);
@@ -106,7 +106,7 @@ void BallScene::MoveBall(float dt, int ID, float strenght)
 		obj.M_Velocity.x = 0;
 		obj.M_Velocity.y = 0;
 		obj.M_ConstantForce.x = 0;
-		obj.M_ConstantForce.y = 0;
+		obj.M_ConstantForce.y = 10.f;
 		break;
 	}
 }

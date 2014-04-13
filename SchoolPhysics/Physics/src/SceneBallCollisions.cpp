@@ -12,10 +12,16 @@ SceneBallCollisions::SceneBallCollisions()
 	
 	for (int i = 0; i < ballCount; i++)
 	{
-		balls.push_back(Ball((rand()%81+20)/50.f,sf::Color(rand()%256,rand()%256,rand()%256,255)));
-		balls.back().setRadius((rand()%21+40)/50.f);
-		balls.back().M_Velocity = sf::Vector2f(rand()%201-100,rand()%201-100)/5.f;
-		balls.back().M_Position = sf::Vector2f(rand()%11-5,rand()%10+1);
+		balls.push_back(Ball(static_cast<float>((rand()%81+20)/50.f),sf::Color(rand()%256,rand()%256,rand()%256,255)));
+		balls.back().setRadius(static_cast<float>((rand()%21+40)/50.f));
+		balls.back().M_Velocity = sf::Vector2f(
+			static_cast<float>(rand()%201-100),
+			static_cast<float>(rand()%201-100)
+			)/5.f;
+		balls.back().M_Position = sf::Vector2f(
+			static_cast<float>(rand()%11-5),
+			static_cast<float>(rand()%10+1)
+			);
 		balls.back().setShapePos();
 	}
 

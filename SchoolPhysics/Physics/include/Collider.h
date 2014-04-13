@@ -17,6 +17,8 @@ public:
 
 	
 private:
+	Collider(Collider&);
+	Collider& operator=(Collider&);
 	// resize vector if needed
 	void ReserveCollisionSpace();
 	// collide objects with wall
@@ -24,11 +26,12 @@ private:
 	// check if balls have collisions with each other
 	bool SolveBallCollisions();
 	// really collide the object having collisions
-	void SolveBall(const size_t index);
+	void SolveBall(const int index);
 	// Check if balls touch
-	bool BasicBallCollision(const size_t a, const size_t b);
+	void BasicBallCollision(const int a, const int b);
+	bool AABB(const PhysicsObject& A, const PhysicsObject& B) const;
 
-	const sf::Rect<float>& m_worldLimits;
+	sf::Rect<float>& m_worldLimits;
 	std::vector<PhysicsObject>& m_physObjects;
 	unsigned int m_iters;
 	std::vector<std::vector<Collision>> m_collisions;

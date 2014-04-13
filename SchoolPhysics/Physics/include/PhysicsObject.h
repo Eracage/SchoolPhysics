@@ -31,8 +31,8 @@ public:
 	
 	sf::Vector2f M_ConstantForce;
 	sf::Vector2f M_Velocity;
-	sf::Vector2f M_Position;
 	sf::Vector2f M_ApproxPosition;
+	sf::Vector2f M_Position;
 	float M_Radius;
 	float M_Mass;
 	float M_Bounciness;

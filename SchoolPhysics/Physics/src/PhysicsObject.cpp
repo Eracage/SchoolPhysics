@@ -18,13 +18,13 @@ PhysicsObject::~PhysicsObject()
 
 void PhysicsObject::PreColUpdate(float timestep, const sf::Vector2f& gravity)
 {
-	//M_Velocity+=(M_ConstantForce + gravity) * timestep * 0.5f;
-	M_Velocity+=(M_ConstantForce + gravity) * timestep * 0.5f;
+	//M_Velocity+=(M_ConstantForce + gravity) * timestep * 1.f;
+	M_Velocity+=(M_ConstantForce + gravity) * timestep * 1.f;
 	M_Position+=M_Velocity * timestep;
 }
 void PhysicsObject::PostColUpdate(float timestep, const sf::Vector2f& gravity)
 {
-	M_Velocity+=(M_ConstantForce + gravity) * timestep * 0.5f;
+	M_Velocity+=(M_ConstantForce + gravity) * timestep * 1.f;
 
 	setShapePos();
 }

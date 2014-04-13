@@ -15,7 +15,7 @@ public:
 	~World();
 
 	// set global gravity
-	void setGravity(sf::Vector2f Gravity);
+	void setGravity(sf::Vector2f Gravity = sf::Vector2f(0.f,9.81f));
 	// set timestep for update
 	void setTimeStep(float TimeStep);
 	// set collision iteration count, more is better but takes more time
@@ -45,7 +45,8 @@ public:
 
 
 private:
-
+	World(World&);
+	World& operator=(World&);
 	sf::Vector2f m_gravity;
 	float m_time;
 	float m_timestep;
