@@ -30,7 +30,7 @@ void PhysicsObject::PostColUpdate(float timestep, const sf::Vector2f& gravity)
 }
 void PhysicsObject::ApproxUpdate(float time, const sf::Vector2f& gravity)
 {
-	M_ApproxPosition = M_Position + (M_Velocity + (M_ConstantForce + gravity) * time * 0.1f)*time * 0.9f;
+	M_ApproxPosition = M_Position + (M_Velocity + (M_ConstantForce + gravity) * time * 1.f)*time * 1.0f;
 
 	m_shape->setPosition(sf::Vector2f(
 		GROUND_MIDX_IN_PIXELS + M_ApproxPosition.x*METERS_TO_PIXELS,

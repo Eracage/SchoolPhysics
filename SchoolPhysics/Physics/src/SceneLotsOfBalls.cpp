@@ -45,8 +45,8 @@ void SceneLotsOfBalls::TextUpdate()
 	text.append("\nTimestep: ").append(std::to_string((long double) m_timestep));
 	text.append("\nWorld Miss % : ").append(std::to_string(long double(missPercent)));
 	text.append("\nWorld Work % : ").append(std::to_string(long double(workPercent)));
-	text.append("\nUse Left&Right Arrow Keys to adjust Timestep");
-	text.append("\nUse Up&Down Arrow Keys to adjust Iterations");
+	text.append("\nUse Up&Down Arrow Keys to adjust Timestep");
+	text.append("\nUse Left&Right Arrow Keys to adjust Iterations");
 	text.append("\nUse Enter to add balls");
 	text.append("\nUse Space to rapidly add balls");
 

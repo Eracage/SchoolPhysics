@@ -26,7 +26,7 @@ void Collider::Update()
 	
 	for (int a = static_cast<int>(m_physObjects.size()) - 1; a >= 0; --a)
 	{
-		m_physObjects[a].M_StaticCollision = static_cast<unsigned int>(-1);
+		m_physObjects[a].M_StaticCollision = static_cast<unsigned int>(0xffffffff);
 	}
 
 	for (unsigned int iters = 0; iters <= m_iters; ++iters)
@@ -187,7 +187,7 @@ void Collider::SolveBall(const int index)
 		// copy velocity to use in iteration
 		const sf::Vector2f iVel = oVel; 
 
-		for (int i = 0; i < collisions; i++)
+		for (int i = 0; i < collisions; ++i)
 		{
 			const sf::Vector2f A_B = colVec[i].A_B;
 			const float A_B_Length = sqrt(Dot(colVec[i].A_B,colVec[i].A_B));
@@ -199,20 +199,20 @@ void Collider::SolveBall(const int index)
 			float pushValue;
 			if (Astatic == Bstatic)
 				pushValue = 0.5f;
-			//else if (Astatic < Bstatic)
-			//{
-			//	pushValue = 0.9f;
-			//	colVec[i].B->M_StaticCollision = Astatic+1;
-			//}
-			//else
-			//{
-			//	pushValue = 0.1f;
-			//	colVec[i].A->M_StaticCollision = Bstatic+1;
-			//}
+			else if (Astatic < Bstatic)
+			{
+				pushValue = 0.9f;
+				colVec[i].B->M_StaticCollision = Astatic+1;
+			}
+			else
+			{
+				pushValue = 0.1f;
+				colVec[i].A->M_StaticCollision = Bstatic+1;
+			}
 
 
 			const sf::Vector2f givenVel = Dot(iVel,A_B)/Dot(A_B,A_B)*A_B * weight1Col;
-			colVec[i].B->M_Velocity += givenVel;
+			colVec[i].B->M_Velocity += givenVel * 0.999f;
 			oVel -= givenVel;
 
 			colVec[i].B->M_Position += A_B*(pushValue*(colVec[i].combRad-A_B_Length)/A_B_Length);
@@ -227,8 +227,8 @@ void Collider::BasicBallCollision(const int a, const int b)
 	const PhysicsObject& B = m_physObjects[b];
 	const PhysicsObject& A = m_physObjects[a];
 
-	if (!AABB(A,B))
-		return;
+	//if (!AABB(A,B))
+	//	return;
 	
 
 	const float bRadius = B.M_Radius;
@@ -248,15 +248,7 @@ bool Collider::AABB(const PhysicsObject& A, const PhysicsObject& B) const
 {
 	const float Ap[3] = {A.M_Position.x,A.M_Position.y, A.M_Radius};
 	const float Bp[3] = {B.M_Position.x,B.M_Position.y, B.M_Radius};
+	
+	return !(Ap[0]+Ap[2] < Bp[0] - Bp[2] || Ap[0]-Ap[2] > Bp[0] + Bp[2] || Ap[1]+Ap[2] < Bp[1] - Bp[2] || Ap[1]-Ap[2] > Bp[1] + Bp[2]); //y
 
-	if (Ap[0]+Ap[2] < Bp[0] - Bp[2])
-		return false;
-	if (Ap[0]-Ap[2] > Bp[0] + Bp[2])
-		return false;
-	if (Ap[1]+Ap[2] < Bp[1] - Bp[2])
-		return false;
-	if (Ap[1]-Ap[2] > Bp[1] + Bp[2])
-		return false;
-
-	return true;
 }

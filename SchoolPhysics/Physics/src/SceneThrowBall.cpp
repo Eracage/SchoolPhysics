@@ -10,6 +10,7 @@ SceneThrowBall::SceneThrowBall()
 {
 	m_world.setGravity(sf::Vector2f(0.f, -10.f));
 	m_world.setTimeStep(.01f);
+	//m_world.toggleApproxUpdate(true);
 
 }
 
