@@ -23,9 +23,11 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			if (event.type == sf::Event::KeyPressed)
+				if (event.key.code == sf::Keyboard::Escape)
 				window.close();
-        }
+		}
+
 		dt = (clock.restart()).asSeconds();
 		SceneHandler::update(dt);
 
